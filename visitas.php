@@ -23,14 +23,5 @@ switch($accion)
 		include_once ("$programa/$programa.vista.php");
 		//echo "<h3><font color='red'>Programa en proceso de construccion!</font> <br><a href='index_movil.php'>Regresar a menu</a></h3>";
 	break;
-	/*
-	case "modi" :
-		include_once ("$programa/$programa.vistamodi.php");
-	break;
-	case "consul" :
-		include_once ("$programa/$programa.vistaconsul.php");
-	break;
-	*/
-    //// aqui se agregan los otros case, pero practicamente con el menu se maneja
 }
 ?>
