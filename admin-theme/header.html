@@ -1,0 +1,112 @@
+<nav id="menu_encabezado" class="navbar navbar-default">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu_collapse" aria-expanded="false">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" target="_parent" href="destroy.php">%%entorno%%</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="menu_collapse">
+			<ul class="nav navbar-nav %%ver_favoritos%%" >
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="ver-favoritos" role="button" aria-haspopup="true" aria-expanded="false">Favoritos <span class="caret"></span></a>
+					<ul class="dropdown-menu" id="dropdown-favoritos">
+						%%favoritos%%
+						%%eliminar_favorito%%
+					</ul>
+				</li>
+			</ul>
+			<form class="navbar-form navbar-left">
+				<div class="form-group input-group">
+					<input type="text" class="form-control" id="buscar-programa" placeholder="Buscar programa" autocomplete="off">
+					<ul class="dropdown-menu" id="dropdown-programas">
+					</ul> 
+				</div>  
+			</form>
+			<ul class="nav navbar-nav navbar-right">
+				%%icono_ayuda%%
+				<li><a href="http://erp.ellipselingerie.com:8082/ayudas.php" target="_blank" class="navbar-btn" data-container="body" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Ayuda visuales"><i class="glyphicon glyphicon-film"></i></a></li>
+				<li><a href="http://gd.ellipselingerie.com:8089" target="_blank" class="navbar-btn" data-container="body" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Gesti&oacute;n Documental"><i class="glyphicon glyphicon-check"></i></a></li>
+				<li><a href="http://cat.inscra.com.co:8084" target="_blank" class="navbar-btn" data-container="body" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Centro de Atenci&oacute;n en Tecnolog&iacute;a CAT"><i class="glyphicon glyphicon-flag"></i></a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">%%usuario%% <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="contrasena.php" target="_parent"><i class="glyphicon glyphicon-user"></i> Cambiar contrase&ntilde;a</a></li>
+						<li><a href="index.php?logout=yes" target="_parent"><i class="glyphicon glyphicon-log-out"></i> Cerrar sesi&oacute;n</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
+<script>
+	$(document).ready(function() {
+		$("#buscar-programa").focus(function(event) {
+			$(this).val("").keyup();
+		});
+		$("#buscar-programa").keyup(function(event) {
+			var programa = $(this).val();
+			if(programa.length > 2){
+				$.ajax({type: "POST",url: "admin-theme/buscar_programa.php",dataType: 'json',async: true, data:  { programa: programa },
+					success: function (response){
+						$("#dropdown-programas").html(response.listado);
+					}
+				});
+				$("#dropdown-programas").slideDown('slow', function() {
+
+				});
+			} else {
+				$("#dropdown-programas").slideUp("fast");
+			}
+		});
+
+
+		$("#agregar-favorito").click(function(event) {
+			$.ajax({type: "POST",url: "admin-theme/favoritos.php",dataType: 'json',async: true, data:  { accion: 'agregar', programa: document.location.pathname },
+				success: function (response){
+					if(response.mensaje == 'Exitoso'){
+						location.reload();
+					} else {
+						$("#main-container").html("<div class='alert alert-warning alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><strong>Atenci&oacute;n!</strong> "+response.mensaje+"</div>"+$("#main-container").html())
+					}
+				}
+			});
+		});
+
+		$("#eliminar-favorito").click(function(event) {
+			$.ajax({type: "POST",url: "admin-theme/favoritos.php",dataType: 'json',async: true, data:  { accion: 'eliminar', programa: document.location.pathname },
+				success: function (response){
+					if(response.mensaje == 'Exitoso'){
+						location.reload();
+					} else {
+						$("#main-container").html("<div class='alert alert-warning alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><strong>Atenci&oacute;n!</strong> "+response.mensaje+"</div>"+$("#main-container").html())
+					}
+				}
+			});
+		});
+
+		$('[data-toggle="tooltip"]').tooltip();
+
+		$("table").find("input").each( function(index, val) {
+			$(this).css("font-family","'Open Sans',Arial,sans");
+			if(($(this).attr('type') == 'button' || $(this).attr('type') == 'submit') && !$(this).hasClass('btn')){
+				$(this).prop('style',null);
+				if($(this).val().length > 1){
+					$(this).prop('size',$.trim($(this).val()).length);
+					$(this).addClass('btn btn-default');
+				}
+			}
+		});
+
+
+	});
+
+	// obsoleta:
+	function centrar_lbn_contenedor(){
+	}
+</script>

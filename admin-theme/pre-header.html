@@ -1,0 +1,40 @@
+<div id='loading-indicator' style='top: 0px; left: 0px; height: 100%; width: 100%; position: fixed; z-index: 9999; margin: 0 auto; position: fixed; background-image: url(funciones/xajax_core/cargando3.gif); background-repeat:no-repeat; background-position: center center; background-attachment: fixed; background-color: #000000; opacity: .4; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)"; display: none'>
+	<div style='position: relative; top: 50%; left: 50%; margin-left: -100px; width: 200px; text-align: center; font-size: 22px; font-family: "Lato", sans-serif, Helvetica, Arial; color: white; margin-top: 80px; text-shadow: 2px 2px 4px #000000;'>Cargando... espera...</div>
+</div>
+<meta name="theme-color" content="#b1254b"> 
+<meta name="apple-mobile-web-app-status-bar-style" content="#b1626b">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="shortcut icon" type="image/png" href="imagenes/LeBonFavicon.png" />
+<script type="text/javascript">
+	window.jQuery || document.write('<script src="javascript/jquery.min.js"><\/script>');
+	var meta = document.createElement('meta'); meta.name = "theme-color"; meta.content = "#b1254b"; document.getElementsByTagName('head')[0].appendChild(meta);	
+	var meta2 = document.createElement('meta'); meta2.name = "apple-mobile-web-app-status-bar-style"; meta2.content = "#b1254b"; document.getElementsByTagName('head')[0].appendChild(meta2);	
+	var meta3 = document.createElement('meta'); meta3.name = "viewport"; meta3.content = "width=device-width, initial-scale=1.0, user-scalable=yes"; document.getElementsByTagName('head')[0].appendChild(meta3);
+</script>
+<link rel="stylesheet" href="estilos/bootstrap/css/glyphicon.css" >
+<link rel="stylesheet" href="estilos/bootstrap/css/bootstrap.min.css" type="text/css" media="screen">
+<link rel="stylesheet" href="estilos/bootstrap/css/bootstrap_dialog.css" type="text/css" media="screen">
+%%theme_adicional%%
+<script type="text/javascript" src="estilos/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="estilos/bootstrap/js/bootstrap_dialog.js"></script>
+<link rel="stylesheet" href="funciones/jquery-window/jquery.windows-engine.css" />
+<script type="text/javascript" src="funciones/jquery-window/jquery.windows-engine.js"></script>
+
+<script type="text/javascript" src="javascript/noty/js/jquery.noty.js"></script>
+<link rel="stylesheet" type="text/css" href="javascript/noty/css/jquery.noty.css"/>
+<link rel="stylesheet" type="text/css" href="javascript/noty/css/noty_theme_twitter.css"/>
+
+<link href="estilos/OpenSans.css" rel="stylesheet">
+<link rel="stylesheet" href="estilos/schema.php" >
+<link rel="stylesheet" href="estilos/hoja_estilos.css" >
+<link rel="stylesheet" href="admin-theme/admin-theme.css" >
+
+<script type="text/javascript">
+	$(document).ajaxStart(function(){
+	    $("#loading-indicator").css("display", "block");
+	});
+
+	$(document).ajaxComplete(function(){
+	    $("#loading-indicator").css("display", "none");
+	});
+</script>
